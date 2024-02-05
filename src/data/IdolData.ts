@@ -9,7 +9,7 @@ const Idol: IIDolInfo[] = [
         nationality: 'Korean',
         birthdate: 'Enero 31, 1997',
         photo: 'https://i.pinimg.com/564x/bd/ae/3c/bdae3cc563de46fbc7f4f2051f2c84c4.jpg',
-        color: 'black,black',
+        color: 'black',
         group: '(G)I-DLE',
         colorGroup: '#E4002B,#5C068C',
         role: 'Main Vocalist'
@@ -22,7 +22,7 @@ const Idol: IIDolInfo[] = [
         nationality: 'Thai',
         birthdate: 'Octubre 23, 1997',
         photo: 'https://i.pinimg.com/564x/76/8f/97/768f97ea8327f9499c073c39d07ec0af.jpg',
-        color: '#2253a3,#2253a3',
+        color: '#2253a3,#616161',
         group: '(G)I-DLE',
         colorGroup: '#E4002B,#5C068C',
         role: 'Main Vocalist, Lead Dancer'

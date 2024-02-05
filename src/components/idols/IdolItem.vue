@@ -10,7 +10,7 @@
             <div class="colors">
                 <div>
                     <p>Color Idol</p>
-                    <button :style="{ background: 'linear-gradient(to right, ' + props.color + ')' }" class="btn"
+                    <button :style="{ background: 'linear-gradient(to right, ' + props.color +','+ props.color + ')' }" class="btn"
                         @click="changeCardColor(props.color)"></button>
                 </div>
                 <div>
@@ -35,9 +35,9 @@ const props = defineProps<IIDolInfo>();
 const cardColor = ref('');
 const textColor = ref('');
 
-function changeCardColor(color: string | string[]) {
-    cardColor.value = Array.isArray(color) ? color[0] : color;
-    if (cardColor.value === 'black,black' || cardColor.value === '#2253a3,#2253a3') {
+function changeCardColor(color: string) {
+    cardColor.value = color;
+    if (cardColor.value === 'black,#616161' || cardColor.value === '#2253a3,#2253a3') {
         textColor.value = 'white';
     } else {
         textColor.value = 'black';
