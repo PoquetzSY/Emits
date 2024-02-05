@@ -9,19 +9,19 @@
             <p>{{ props.role }}</p>
             <div class="colors">
                 <div>
-                    <p>Color Idol</p>
-                    <button :style="{ background: 'linear-gradient(to right, ' + props.color +','+ props.color + ')' }" class="btn"
+                    <p>Color del Idol</p>
+                    <button :style="{ backgroundColor: props.color.split(',')[0] }" class="btn"
                         @click="changeCardColor(props.color)"></button>
                 </div>
                 <div>
-                    <p>Color Grupo</p>
+                    <p>Color del Grupo</p>
                     <button :style="{ background: 'linear-gradient(to right, ' + props.colorGroup + ')' }" class="btn"
                         @click="changeCardColor(props.colorGroup)"></button>
                 </div>
             </div>
         </div>
 
-        <div>
+        <div class="imgContainer">
             <img :src="props.photo" :alt="props.name">
         </div>
     </div>
@@ -33,19 +33,18 @@ import type { IIDolInfo } from '@/interfaces/IIdolInfo';
 
 const props = defineProps<IIDolInfo>();
 const cardColor = ref('');
-const textColor = ref('');
+const textColor = ref('white');
 
 function changeCardColor(color: string) {
+    cardColor.value = color;
     if (color.includes(',')) {
-        cardColor.value = color;
         changeTextColor(color.split(',')[0]);
     } else {
-        cardColor.value = color + ',' + color;
         changeTextColor(color);
     }
 }
 function changeTextColor(color: string) {
-    if (color === 'black' || color === '#2253a3') {
+    if (color === 'black' || color === '#2253a3' || color === '#e62722' || color === '#E4002B') {
         textColor.value = 'white';
     } else {
         textColor.value = 'black';
@@ -63,6 +62,13 @@ function changeTextColor(color: string) {
     justify-content: space-between;
     background-color: #616161;
     color: black;
+    width: 500px;
+    height: 320px;
+}
+
+.imgContainer {
+    display: flex;
+    align-items: center;
 }
 
 img {
@@ -88,5 +94,8 @@ img {
 .colors div {
     margin-top: 10px;
     margin-right: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 </style>
