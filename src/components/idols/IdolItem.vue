@@ -36,8 +36,16 @@ const cardColor = ref('');
 const textColor = ref('');
 
 function changeCardColor(color: string) {
-    cardColor.value = color;
-    if (cardColor.value === 'black,#616161' || cardColor.value === '#2253a3,#2253a3') {
+    if (color.includes(',')) {
+        cardColor.value = color;
+        changeTextColor(color.split(',')[0]);
+    } else {
+        cardColor.value = color + ',' + color;
+        changeTextColor(color);
+    }
+}
+function changeTextColor(color: string) {
+    if (color === 'black' || color === '#2253a3') {
         textColor.value = 'white';
     } else {
         textColor.value = 'black';
