@@ -83,7 +83,7 @@ function addIdol() {
     newIdol.value.nationality = nationality.value;
     newIdol.value.birthdate = birthdate.value;
     newIdol.value.photo = photo.value;
-    newIdol.value.color = color.value;
+    newIdol.value.color = color.value + ',#616161';
     newIdol.value.group = group.value;
     newIdol.value.colorGroup = colorGroup.value;
     newIdol.value.role = role.value;
