@@ -1,67 +1,55 @@
 <template>
-    <form @submit.prevent="addIdol">
-        <div class="form">
-            <label for="name">Name:</label>
-            <input type="text" id="name" v-model="name" required>
+    <form @submit.prevent="addIdol" class="form-container">
+        <div class="form-group">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" v-model="newIdol.name" required>
         </div>
-        <div class="form">
-            <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" v-model="lastName" required>
+        <div class="form-group">
+            <label for="lastName">Apellido:</label>
+            <input type="text" id="lastName" v-model="newIdol.lastName" required>
         </div>
-        <div class="form">
-            <label for="age">Age:</label>
-            <input type="number" id="age" v-model="age" required>
+        <div class="form-group">
+            <label for="age">Edad:</label>
+            <input type="number" id="age" v-model="newIdol.age" required>
         </div>
-        <div class="form">
-            <label for="nationality">nationality:</label>
-            <input type="text" id="nationality" v-model="nationality" required>
+        <div class="form-group">
+            <label for="nationality">Nacionalidad:</label>
+            <input type="text" id="nationality" v-model="newIdol.nationality" required>
         </div>
-        <div class="form">
-            <label for="birthdate">Birthdate:</label>
-            <input type="date" id="birthdate" v-model="birthdate" required>
+        <div class="form-group">
+            <label for="birthdate">Fecha de nacimiento:</label>
+            <input type="date" id="birthdate" v-model="newIdol.birthdate" required>
         </div>
-        <div class="form">
-            <label for="photo">Photo:</label>
-            <input type="text" id="photo" v-model="photo" required>
+        <div class="form-group">
+            <label for="photo">Imagen:</label>
+            <input type="text" id="photo" v-model="newIdol.photo" required>
         </div>
-        <div class="form">
-            <label for="color">Color:</label>
-            <input type="text" id="color" v-model="color" required>
+        <div class="form-group">
+            <label for="color">Color del Idol:</label>
+            <input type="text" id="color" v-model="newIdol.color" required>
         </div>
-        <div class="form">
-            <label for="group">Group:</label>
-            <input type="text" id="group" v-model="group" required>
+        <div class="form-group">
+            <label for="group">Grupo al que pertenece:</label>
+            <input type="text" id="group" v-model="newIdol.group" required>
         </div>
-        <div class="form">
-            <label for="colorGroup">Color Group:</label>
-            <input type="text" id="colorGroup" v-model="colorGroup" required>
+        <div class="form-group">
+            <label for="colorGroup">Color del Grupo:</label>
+            <input type="text" id="colorGroup" v-model="newIdol.colorGroup" required>
         </div>
-        <div class="form">
-            <label for="role">Role:</label>
-            <input type="text" id="role" v-model="role" required>
+        <div class="form-group">
+            <label for="role">Rol en el Grupo:</label>
+            <input type="text" id="role" v-model="newIdol.role" required>
         </div>
-        <button type="submit">Add Idol</button>
+        <button type="submit">Añadir Idol</button>
     </form>
 </template>
 
 <script setup lang="ts">
-import { defineEmits, ref } from "vue";
+import { defineEmits, reactive } from "vue";
 import type { IIDolInfo } from '@/interfaces/IIdolInfo';
 import Idols from '@/data/IdolData';
 
-const name = ref('');
-const lastName = ref('');
-const age = ref(0);
-const nationality = ref('');
-const birthdate = ref('');
-const photo = ref('');
-const color = ref('');
-const group = ref('');
-const colorGroup = ref('');
-const role = ref('');
-
-
-const newIdol = ref<IIDolInfo>({
+const newIdol = reactive<IIDolInfo>({
     id: 0,
     name: '',
     age: 0,
@@ -74,43 +62,57 @@ const newIdol = ref<IIDolInfo>({
     colorGroup: '',
     role: ''
 });
-const emit = defineEmits(['addIdol']);
+const emit = defineEmits(['add-Idol']);
+
 function addIdol() {
-    newIdol.value.id = Idols.length + 1;
-    newIdol.value.name = name.value;
-    newIdol.value.lastName = lastName.value;
-    newIdol.value.age = age.value;
-    newIdol.value.nationality = nationality.value;
-    newIdol.value.birthdate = birthdate.value;
-    newIdol.value.photo = photo.value;
-    newIdol.value.color = color.value + ',#616161';
-    newIdol.value.group = group.value;
-    newIdol.value.colorGroup = colorGroup.value;
-    newIdol.value.role = role.value;
-    Idols.push({ ...newIdol.value });
-    emit('addIdol', { ...newIdol.value });
+    newIdol.id = Idols.length + 1;
+    newIdol.color = newIdol.color + ',#616161';
+    emit('add-Idol', { ...newIdol });
     console.log(Idols);
 }
 
 </script>
 
 <style scoped>
-.modal-mask {
-    position: fixed;
-    z-index: 9998;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+.form-container {
+    width: 1000px;
+    margin: auto;
+    padding: 20px;
+    background-color: #222;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #fff;
 }
 
-.modal-container {
-    width: 300px;
-    margin: 150px auto;
-    padding: 20px 30px;
-    background-color: #616161;
-    border-radius: 2px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+.form-group {
+    margin-bottom: 15px;
 }
-</style>stylestyle
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+</style>
