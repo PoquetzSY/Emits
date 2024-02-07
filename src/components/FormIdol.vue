@@ -3,27 +3,29 @@
         <div class="form-group">
             <div>
                 <label for="name">Nombre:</label>
-                <input :class="{errorInput:nameE || nameC }" @input="nameValidation()" type="text" id="name" v-model.trim="newIdol.name" required >
-                <p v-if="nameE">Rellene este campo</p>
-                <p v-if="nameC">Caracteres invalidos</p>
+                <input :class="{errorInput:ers.nameE || ers.nameC }" @input="nameValidation()" type="text" id="name" v-model.trim="newIdol.name" required >
+                <p v-if="ers.nameE">Rellene este campo</p>
+                <p v-if="ers.nameC">Caracteres invalidos</p>
             </div>
             <div>
                 <label for="lastName">Apellido:</label>
-                <input :class="{errorInput:lNameE || lNameC }" @input="lastNameValidation()" type="text" id="lastName" v-model.trim="newIdol.lastName" required >
-                <p v-if="lNameE">Rellene este campo</p>
-                <p v-if="lNameC">Caracteres invalidos</p>
+                <input :class="{errorInput:ers.lNameE || ers.lNameC }" @input="lastNameValidation()" type="text" id="lastName" v-model.trim="newIdol.lastName" required >
+                <p v-if="ers.lNameE">Rellene este campo</p>
+                <p v-if="ers.lNameC">Caracteres invalidos</p>
             </div>
             <div>
                 <label for="age">Edad:</label>
                 <input type="number" id="age" v-model="newIdol.age" required >
+                <p v-if="ers.ageE">Rellene este campo</p>
+                <p v-if="ers.ageC">Edad invalida</p>
             </div>
         </div>
         <div class="form-group">
             <div>
                 <label for="nationality">Nacionalidad:</label>
-                <input :class="{errorInput:nacionalityE || nacionalityC }" @input="nacionalityValidation()" type="text" id="nationality" v-model.trim="newIdol.nationality" required >
-                <p v-if="nacionalityE">Rellene este campo</p>
-                <p v-if="nacionalityC">Caracteres invalidos</p>
+                <input :class="{errorInput:ers.nacionalityE || ers.nacionalityC }" @input="nacionalityValidation()" type="text" id="nationality" v-model.trim="newIdol.nationality" required >
+                <p v-if="ers.nacionalityE">Rellene este campo</p>
+                <p v-if="ers.nacionalityC">Caracteres invalidos</p>
             </div>
             <div>
                 <label for="birthdate">Fecha de nacimiento:</label>
@@ -31,9 +33,9 @@
             </div>
             <div>
                 <label for="role">Rol en el Grupo:</label>
-                <input :class="{errorInput:roleE || roleC }" @input="roleValidation()" type="text" id="role" v-model.trim="newIdol.role" required >
-                <p v-if="roleE">Rellene este campo</p>
-                <p v-if="roleC">Caracteres invalidos</p>
+                <input :class="{errorInput:ers.roleE || ers.roleC }" @input="roleValidation()" type="text" id="role" v-model.trim="newIdol.role" required >
+                <p v-if="ers.roleE">Rellene este campo</p>
+                <p v-if="ers.roleC">Caracteres invalidos</p>
             </div>
         </div>
         <div class="form-group">
@@ -49,9 +51,9 @@
             </div>
             <div>
                 <label for="group">Grupo al que pertenece:</label>
-                <input :class="{errorInput:groupE || groupC }" @input="groupValidation()" type="text" id="group" v-model.trim="newIdol.group" required >
-                <p v-if="groupE">Rellene este campo</p>
-                <p v-if="groupC">Caracteres invalidos</p>
+                <input :class="{errorInput:ers.groupE || ers.groupC }" @input="groupValidation()" type="text" id="group" v-model.trim="newIdol.group" required >
+                <p v-if="ers.groupE">Rellene este campo</p>
+                <p v-if="ers.groupC">Caracteres invalidos</p>
             </div>
             <div>
                 <label for="colorGroup">Color del Grupo:</label>
@@ -69,21 +71,25 @@ import { defineEmits, reactive,ref } from "vue";
 import type { IIDolInfo } from '@/interfaces/IIdolInfo';
 import Idols from '@/data/IdolData';
 
-const nameE = ref(false);
-const nameC = ref(false);
-const lNameE = ref(false);
-const lNameC = ref(false);
-const nacionalityE = ref(false);
-const nacionalityC = ref(false);
-const roleE = ref(false);
-const roleC = ref(false);
-const groupE = ref(false);
-const groupC = ref(false);
+const ers = reactive({
+    nameE: false,
+    nameC: false,
+    lNameE: false,
+    lNameC: false,
+    nacionalityE: false,
+    nacionalityC: false,
+    roleE: false,
+    roleC: false,
+    groupE: false,
+    groupC: false,
+    ageE: false,
+    ageC: false
+});
 
 const newIdol = reactive<IIDolInfo>({
     id: 0,
     name: '',
-    age: 0,
+    age: null,
     group: '',
     lastName: '',
     nationality: '',
@@ -107,7 +113,7 @@ function addIdol() {
 }
 
 function validationForm() {
-    if (nameE.value === true || nameC.value === true || lNameE.value === true || lNameC.value === true || nacionalityE.value === true || nacionalityC.value === true || roleE.value === true || roleC.value === true || groupE.value === true || groupC.value === true) {
+    if (ers.nameE === true || ers.nameC === true || ers.lNameE === true || ers.lNameC === true || ers.nacionalityE === true || ers.nacionalityC === true || ers.roleE === true || ers.roleC === true || ers.groupE === true || ers.groupC === true) {
         return false;
     } else {
         return true;
@@ -116,64 +122,64 @@ function validationForm() {
 
 const nameValidation = () => {
     if (newIdol.name === '' ) {
-        nameE.value = true;
+        ers.nameE = true;
     } else {
-        nameE.value = false;
+        ers.nameE = false;
     }
     if (!/^[a-zA-Z\s]+$/.test(newIdol.name)) {
-        nameC.value = true;
+        ers.nameC = true;
     } else {
-        nameC.value = false;
+        ers.nameC = false;
     }
 }
 
 const lastNameValidation = () => {
     if (newIdol.lastName === '' ) {
-        lNameE.value = true;
+        ers.lNameE = true;
     } else {
-        lNameE.value = false;
+        ers.lNameE = false;
     }
     if (!/^[a-zA-Z\s]+$/.test(newIdol.lastName)) {
-        lNameC.value = true;
+        ers.lNameC = true;
     } else {
-        lNameC.value = false;
+        ers.lNameC = false;
     }
 }
 
 const nacionalityValidation = () => {
     if (newIdol.nationality === '' ) {
-        nacionalityE.value = true;
+        ers.nacionalityE = true;
     } else {
-        nacionalityE.value = false;
+        ers.nacionalityE = false;
     }
     if (!/^[a-zA-Z\s]+$/.test(newIdol.nationality)) {
-        nacionalityC.value = true;
+        ers.nacionalityC = true;
     } else {
-        nacionalityC.value = false;
+        ers.nacionalityC = false;
     }
 }
 const roleValidation = () => {
     if (newIdol.role === '' ) {
-        roleE.value = true;
+        ers.roleE = true;
     } else {
-        roleE.value = false;
+        ers.roleE = false;
     }
     if (!/^[a-zA-Z\s]+$/.test(newIdol.role)) {
-        roleC.value = true;
+        ers.roleC = true;
     } else {
-        roleC.value = false;
+        ers.roleC = false;
     }
 }
 const groupValidation = () => {
     if (newIdol.group === '' ) {
-        groupE.value = true;
+        ers.groupE = true;
     } else {
-        groupE.value = false;
+        ers.groupE = false;
     }
     if (!/^[a-zA-Z\s]+$/.test(newIdol.group)) {
-        groupC.value = true;
+        ers.groupC = true;
     } else {
-        groupC.value = false;
+        ers.groupC = false;
     }
 }
 

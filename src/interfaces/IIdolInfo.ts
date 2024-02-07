@@ -2,7 +2,7 @@ export interface IIDolInfo {
     id: number;
     name: string;
     lastName: string;
-    age: number;
+    age: number | null;
     nationality: string;
     birthdate: string;
     photo: string;
