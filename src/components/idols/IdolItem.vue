@@ -5,6 +5,7 @@
             <h2>{{ props.lastName }} {{ props.name }}</h2>
             <p>{{ props.age }} Años</p>
             <p>{{ props.birthdate }}</p>
+            <p>{{ props.nationality }}</p>
             <p>{{ props.group }}</p>
             <p>{{ props.role }}</p>
             <div class="colors">
