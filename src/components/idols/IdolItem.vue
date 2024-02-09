@@ -82,12 +82,15 @@ img {
     height: 30px;
     border-radius: 50%;
     border: none;
-    margin: 0;
-    padding: 0;
+    margin: 10px;
     cursor: pointer;
     transition: all 0.3s;
+    border: white 1px solid;
+    transform: scale(1);
 }
-
+.btn:hover {
+    transform: scale(1.2);
+}
 .colors {
     display: flex;
 }
