@@ -1,10 +1,10 @@
 <script setup lang="ts">
 
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 
 const name = ref('');
 const last_name = ref('');
-const age = ref('');
+const age = ref();
 const selectedGender = ref('');
 
 
@@ -28,6 +28,7 @@ const LastNamevalidation = () => {
     } else {
         error_lName.value = false;
     }
+
     if (last_name.value === name.value) {
         error_same_name.value = true;
     } else {
@@ -42,8 +43,6 @@ const Agevalidation = () => {
     }
 }
 
-
-const OtherSelected = computed(() => selectedGender.value === 'other');
 </script>
 <template>
     <div>
@@ -79,8 +78,10 @@ const OtherSelected = computed(() => selectedGender.value === 'other');
                     <label for="other">Otro:</label>
 
                 </div>
-                <label v-if="OtherSelected" for="othergender">Especificar:</label>
-                <input v-if="OtherSelected" type="text" name="othergender" maxlength="18">
+                <template v-if="selectedGender === 'other'">
+                    <label for="othergender">Especificar:</label>
+                    <input type="text" name="othergender" maxlength="18">
+                </template>
             </div>
 
         </form>
